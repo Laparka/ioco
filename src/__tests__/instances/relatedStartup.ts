@@ -26,7 +26,7 @@ const constantResolver = {
     }
 }
 
-type NotificationService = {
+export type NotificationService = {
     sendAsync(message: string): Promise<void>;
 }
 
@@ -43,7 +43,7 @@ class NullNotificator implements NotificationService {
 
 }
 
-export default class RelatedStartup implements RegistrationModule {
+export class RelatedStartup implements RegistrationModule {
     register(builder: ContainerBuilder): void {
         builder.addService<DatabaseService>(DynamoDBService, "DATABASE_SERVICE", "Lifetime");
         builder.addResolver(constantResolver, "LOGGER");

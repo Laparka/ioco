@@ -160,7 +160,7 @@ export async function listRegistrations(importPath: string, startupName: string)
         registrationDirPath: fileDirPath,
         registrations: {
             instances: [],
-            services: new Map<string, string>()
+            resolvers: []
         },
         startupName: startupName
     };
@@ -170,17 +170,17 @@ export async function listRegistrations(importPath: string, startupName: string)
     const processedInstances = new Map<string, string[]>();
     for(let i = 0; i < context.registrations.instances.length; i++) {
         const instance = context.registrations.instances[i];
-        if (instance.type.isExternal) {
+        if (instance.instanceType.isExternal) {
             instance.dependencies = [];
             continue;
         }
 
-        const instancePath = `${instance.type.locationPath}:${instance.type.typeName}`;
+        const instancePath = `${instance.instanceType.locationPath}:${instance.instanceType.typeName}`;
         let processed = processedInstances.get(instancePath);
         if (!processed) {
             processed = [];
             processedInstances.set(instancePath, processed);
-            const dependencies = await listDependenciesAsync(instance.type);
+            const dependencies = await listDependenciesAsync(instance.instanceType);
             processed.push(...dependencies);
         }
 

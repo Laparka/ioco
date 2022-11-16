@@ -69,14 +69,6 @@ export function evaluateAccessor(expression: ts.Node, pathSegments?: string[]): 
     return pathSegments.join('.');
 }
 
-export function evaluateStringLiteral(expression: ts.Node): string {
-    if (expression.kind !== ts.SyntaxKind.StringLiteral) {
-        throw Error(`A string literal was expected`);
-    }
-
-    return evaluateAccessor(expression);
-}
-
 export function isRegisterMethod(statement: ts.Declaration): ts.MethodDeclaration | undefined {
     if (statement?.kind !== ts.SyntaxKind.MethodDeclaration) {
         return undefined;

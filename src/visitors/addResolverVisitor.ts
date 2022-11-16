@@ -8,14 +8,13 @@ import {
 } from "./importVisitors";
 import path from "path";
 import fs from "fs";
-import {evaluateAccessor, evaluateStringLiteral, evaluateTypeAccessor} from "./utils";
+import {evaluateAccessor, evaluateTypeAccessor} from "./utils";
 
 export async function visitAddResolverAsync(callExpression: ts.CallExpression, parentContext: TraversalContext): Promise<void> {
     if (callExpression.arguments.length !== 2) {
         throw Error(`The .addResolver-method requires two arguments: the resolver initializer and the service key`);
     }
 
-    const serviceId = evaluateStringLiteral(callExpression.arguments[1]);
     let resolverName: string;
     switch (callExpression.arguments[0].kind) {
         case ts.SyntaxKind.NewExpression: {
@@ -121,14 +120,7 @@ export async function visitAddResolverAsync(callExpression: ts.CallExpression, p
     }
 
     if (serviceType) {
-        const serviceHashKey = `${serviceType.locationPath}:${serviceType.typeName}`;
-        const existingServiceId = parentContext.registrations.services.get(serviceHashKey);
-        if (!existingServiceId) {
-            parentContext.registrations.services.set(serviceHashKey, serviceId);
-        }
-        else if (existingServiceId !== serviceId) {
-            throw Error(`The service registration key "${serviceId}" can be assigned only to service type of "${serviceHashKey}"`);
-        }
+        parentContext.registrations.resolvers.push(serviceType);
     }
 }
 

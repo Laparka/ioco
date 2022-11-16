@@ -63,7 +63,7 @@ export async function listDependenciesAsync(instance: AccessorType): Promise<str
         startupName: instance.typeName,
         registrations: {
             instances: [],
-            services: new Map<string, string>()
+            resolvers: []
         }
     };
     const dependencies: string[] = [];

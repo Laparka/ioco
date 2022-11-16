@@ -1,10 +1,8 @@
 import {AccessorType, ImportDefinitions} from "./importVisitors";
-import {ServiceScope} from "../containerBuilders/containerBuilder";
 
 export type InstanceRegistration = {
-    serviceId: string;
-    type: AccessorType;
-    scope: ServiceScope;
+    serviceType: AccessorType;
+    instanceType: AccessorType;
     dependencies?: string[];
 };
 
@@ -18,5 +16,5 @@ export type TraversalContext = {
 
 export type Registrations = {
     instances: InstanceRegistration[];
-    services: Map<string, string>;
+    resolvers: AccessorType[];
 };

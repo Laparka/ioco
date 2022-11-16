@@ -1,6 +1,6 @@
 import * as utils from "../../containerBuilders/registrationModule";
 import * as builders from "../../containerBuilders/containerBuilder";
-import RelatedStartup from "./relatedStartup";
+import {RelatedStartup} from "./relatedStartup";
 import * as Star from "../../containerBuilders/containerBuilder";
 
 
