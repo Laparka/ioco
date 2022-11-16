@@ -1,7 +1,7 @@
-import * as utils from "../../containerBuilders/registrationModule";
-import * as builders from "../../containerBuilders/containerBuilder";
+import * as utils from "ioco/src/ioco";
+import * as builders from "ioco/src/ioco";
 import {RelatedStartup} from "./relatedStartup";
-import * as Star from "../../containerBuilders/containerBuilder";
+import * as Star from "ioco/src/ioco";
 
 
 const localStartup: utils.RegistrationModule = {

@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "description": "TypeScript Dependency Injection",
   "main": "lib/ioco.node.cjs.js",
-  "bin": {
-    "ioco": "bin/ioco.js"
-  },
   "scripts": {
     "clean": "rimraf lib/ && rimraf bin/",
     "build": "npm run clean && rollup -c rollup.config.ts"

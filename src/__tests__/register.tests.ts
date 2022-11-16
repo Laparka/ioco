@@ -1,6 +1,6 @@
 import {TypeScriptContainerBuilder} from "../containerBuilders/containerBuilder";
 import TestStartup from "./instances/startup";
-import {listRegistrations} from '../visitors';
+import {listRegistrations} from 'ioco/src/ioco';
 import {DatabaseService} from "./instances/databaseService";
 import assert from "assert";
 import {NotificationService} from "./instances/relatedStartup";

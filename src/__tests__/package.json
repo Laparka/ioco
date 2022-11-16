@@ -5,6 +5,6 @@
     "build": "ioco -c ioco-config.json"
   },
   "dependencies": {
-    "ioco": "file:../.."
+    "ioco": "0.0.1"
   }
 }

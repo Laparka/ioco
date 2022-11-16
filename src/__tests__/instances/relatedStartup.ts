@@ -1,8 +1,6 @@
-import {RegistrationModule} from "../../containerBuilders/registrationModule";
-import {ContainerBuilder} from "../../containerBuilders/containerBuilder";
 import {DynamoDBService} from "./dynamoDbService";
 import {DatabaseService} from "./databaseService";
-import {ServiceResolver} from "../../resolvers/serviceResolver";
+import {ContainerBuilder, RegistrationModule, ServiceResolver} from "ioco/src/ioco";
 
 type Logger = {
     log(message: string): void;
@@ -38,7 +36,7 @@ class NullNotificator implements NotificationService {
 
     sendAsync(message: string): Promise<void> {
         this._logger.log(message);
-        return Promise<void>.resolve();
+        return Promise.resolve();
     }
 
 }
