@@ -6,7 +6,7 @@
     "noImplicitAny": true,
     "esModuleInterop": true,
     "sourceMap": true,
-    "outDir": "lib",
+    "outDir": "./lib",
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
@@ -16,5 +16,5 @@
     "allowJs": true
   },
   "all": true,
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["node_modules", "lib", "bin"]
 }

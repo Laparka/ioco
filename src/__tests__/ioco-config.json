@@ -1,7 +1,0 @@
-{
-  "entryModule": {
-    "path": "./instances/startup.ts",
-    "instance": "TestStartup"
-  },
-  "outputDir": "./instances/dependencies.generated/"
-}

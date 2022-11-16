@@ -1,14 +1,22 @@
 {
   "name": "ioco",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "TypeScript Dependency Injection",
   "main": "lib/ioco.node.cjs.js",
+  "types": "lib/ioco.d.ts",
+  "files": [
+    "lib/**/*",
+    "bin/**/*"
+  ],
   "scripts": {
     "clean": "rimraf lib/ && rimraf bin/",
     "build": "npm run clean && rollup -c rollup.config.ts && rollup -c cli.config.ts"
   },
   "bin": {
     "ioco": "bin/ioco.js"
+  },
+  "directories": {
+    "lib": "lib"
   },
   "keywords": [
     "Dependency Injection",
