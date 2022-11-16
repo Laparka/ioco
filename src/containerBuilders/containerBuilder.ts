@@ -5,7 +5,7 @@ export type InstanceCtor<TService> = {
     new(...args: any[]): TService;
 };
 
-export type ServiceScope = "Transient" | "Lifetime" |"Singleton";
+export type ServiceScope = "Transient" | "Scoped" |"Singleton";
 
 export type ContainerBuilder = {
     addModule(module: RegistrationModule): ContainerBuilder;
@@ -49,7 +49,7 @@ export class TypeScriptContainerBuilder implements ContainerBuilder {
         }
 
         this._resolversByServicePath.set(`${instanceRegistration.serviceType.locationPath}:${instanceRegistration.serviceType.typeName}`, serviceKey);
-        resolvers.push(new DefaultServiceResolver(instance, instanceRegistration));
+        resolvers.push(new DefaultServiceResolver(instance, instanceRegistration, scope));
         return this;
     }
 
