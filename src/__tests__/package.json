@@ -1,0 +1,10 @@
+{
+  "name": "__tests__",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "ioco -c ioco-config.json"
+  },
+  "dependencies": {
+    "ioco": "file:../.."
+  }
+}
