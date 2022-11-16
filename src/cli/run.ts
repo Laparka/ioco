@@ -2,9 +2,15 @@ import {listRegistrations} from "./visitors";
 import fs from "fs";
 import argParser from "yargs-parser";
 import process from "process";
+import path from "path";
 
 async function writeRegistrationsAsync(startupPath: string, startupModuleName: string, outputSchemaFile: string): Promise<void> {
     const schema = await listRegistrations(startupPath, startupModuleName);
+    const dirPath = path.dirname(path.resolve(outputSchemaFile));
+    if (!fs.existsSync(dirPath)) {
+        await fs.promises.mkdir(dirPath);
+    }
+
     await fs.promises.writeFile(outputSchemaFile, JSON.stringify(schema), {encoding: "utf8"});
 }
 
