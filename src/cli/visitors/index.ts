@@ -1,8 +1,7 @@
 import * as ts from 'typescript';
 import * as fs from 'fs';
 import path from "path";
-import {Registrations, TraversalContext} from "./context";
-import {ImportDefinition} from "./importVisitors";
+import {Registrations, TraversalContext, ImportDefinition} from "../../containerBuilders/context";
 import {visitAsync} from "./addModuleVisitor";
 import {listDependenciesAsync} from "./dependencies";
 

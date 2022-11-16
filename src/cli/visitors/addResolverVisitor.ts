@@ -1,11 +1,6 @@
 import * as ts from "typescript";
-import {TraversalContext} from "./context";
-import {
-    AccessorType,
-    getAccessorType,
-    ImportDefinition,
-    visitImportDeclaration
-} from "./importVisitors";
+import {TraversalContext, ImportDefinition, AccessorType} from "../../containerBuilders/context";
+import {getAccessorType, visitImportDeclaration} from "./importVisitors";
 import path from "path";
 import fs from "fs";
 import {evaluateAccessor, evaluateTypeAccessor} from "./utils";

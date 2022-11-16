@@ -1,6 +1,6 @@
 import {RegistrationModule} from "./registrationModule";
 import {DefaultServiceResolver, ScopeProvider, ServiceProvider, ServiceResolver} from "../resolvers/serviceResolver";
-import {Registrations} from "../visitors/context";
+import {Registrations} from "./context";
 export type InstanceCtor<TService> = {
     new(...args: any[]): TService;
 };

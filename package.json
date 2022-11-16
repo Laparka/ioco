@@ -5,7 +5,10 @@
   "main": "lib/ioco.node.cjs.js",
   "scripts": {
     "clean": "rimraf lib/ && rimraf bin/",
-    "build": "npm run clean && rollup -c rollup.config.ts"
+    "build": "npm run clean && rollup -c rollup.config.ts && rollup -c cli.config.ts"
+  },
+  "bin": {
+    "ioco": "bin/ioco.js"
   },
   "keywords": [
     "Dependency Injection",

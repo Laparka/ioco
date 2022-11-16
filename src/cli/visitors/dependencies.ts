@@ -1,8 +1,8 @@
-import {AccessorType, getAccessorType, ImportDefinition, visitImportDeclaration} from "./importVisitors";
+import {getAccessorType, visitImportDeclaration} from "./importVisitors";
 import path from "path";
 import fs from "fs";
 import * as ts from "typescript";
-import {TraversalContext} from "./context";
+import {AccessorType, ImportDefinition, TraversalContext} from "../../containerBuilders/context";
 import {evaluateAccessor, evaluateTypeAccessor} from "./utils";
 
 function visit(statement: ts.Statement, context: TraversalContext, dependencies: string[]): void {

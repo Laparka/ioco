@@ -1,22 +1,6 @@
 import * as ts from "typescript";
 import path from "path";
-import {TraversalContext} from "./context";
-export type ImportType = "Named" | "Namespace" | "Default" | "Local";
-export type ImportDefinition = AccessorType & {
-    aliasTypeName: string;
-};
-
-export type ImportDefinitions = {
-    names: Map<string, ImportDefinition>;
-    aliasesPath: string[];
-};
-
-export type AccessorType = {
-    locationPath: string;
-    typeName: string;
-    importType: ImportType;
-    isExternal: boolean;
-}
+import {AccessorType, ImportDefinition, ImportDefinitions, TraversalContext} from "../../containerBuilders/context";
 
 export function visitImportDeclaration(statement: ts.ImportDeclaration, context: TraversalContext): void {
     const importSpecifier = <ts.StringLiteral>statement.moduleSpecifier;

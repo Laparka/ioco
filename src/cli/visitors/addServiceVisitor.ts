@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import {TraversalContext} from "./context";
+import {TraversalContext} from "../../containerBuilders/context";
 import {getAccessorType} from "./importVisitors";
 import {evaluateAccessor, evaluateTypeAccessor} from "./utils";
 

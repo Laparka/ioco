@@ -1,6 +1,6 @@
-import pkg from './package.json'
-import typescript from 'rollup-plugin-typescript2'
-import versionInjector from 'rollup-plugin-version-injector'
+import pkg from './package.json';
+import typescript from 'rollup-plugin-typescript2';
+import versionInjector from 'rollup-plugin-version-injector';
 
 const version = process.env.VERSION || pkg.version;
 const sourceMap = true;
@@ -11,8 +11,7 @@ const treeshake = {
 
 const tsconfig = {
     tsconfigOverride: {
-        include: [ 'src' ],
-        exclude: [ 'src/__tests__', 'src/cli' ],
+        include: [ 'src/cli' ],
         compilerOptions: {
             target: 'es6',
             module: 'es6'
@@ -31,17 +30,17 @@ const versionInjection = versionInjector({
     logger: console,
     exclude: []
 })
-const nodeJsInput = './src/ioco.ts';
+const cliInput = './src/cli/run.ts';
 
 const nodeCjs = {
     output: [{
-        file: 'lib/ioco.node.cjs.js',
+        file: 'bin/ioco.js',
         format: 'cjs'
     }],
     external: ['path', 'fs'],
     plugins: [versionInjection, typescript(tsconfig)],
     treeshake: treeshake,
-    input: nodeJsInput
+    input: cliInput
 };
 
 

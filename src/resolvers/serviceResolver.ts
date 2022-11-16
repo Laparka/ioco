@@ -1,5 +1,5 @@
 import {InstanceCtor} from "../containerBuilders/containerBuilder";
-import {InstanceRegistration} from "../visitors/context";
+import {InstanceRegistration} from "../containerBuilders/context";
 
 export type ServiceProvider = {
     newScope(): ServiceProvider;

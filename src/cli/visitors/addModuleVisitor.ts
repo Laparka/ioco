@@ -1,7 +1,7 @@
 import * as ts from "typescript";
-import {TraversalContext} from "./context";
+import {TraversalContext, ImportDefinition} from "../../containerBuilders/context";
 import {evaluateAccessor, isRegisterMethod} from "./utils";
-import {getAccessorType, ImportDefinition, visitImportDeclaration} from "./importVisitors";
+import {getAccessorType, visitImportDeclaration} from "./importVisitors";
 import path from "path";
 import fs from "fs";
 import {visitAddServiceMethod} from "./addServiceVisitor";
