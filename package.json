@@ -1,6 +1,6 @@
 {
   "name": "ioco",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "TypeScript Dependency Injection",
   "main": "lib/ioco.node.cjs.js",
   "types": "lib/ioco.d.ts",
