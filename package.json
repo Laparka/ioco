@@ -1,6 +1,6 @@
 {
   "name": "ioco",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "TypeScript Dependency Injection",
   "main": "lib/ioco.node.cjs.js",
   "types": "lib/ioco.d.ts",
@@ -13,7 +13,7 @@
     "build": "npm run clean && rollup -c rollup.config.ts && rollup -c cli.config.ts"
   },
   "bin": {
-    "ioco": "bin/ioco.js"
+    "ioco": "bin/index.js"
   },
   "directories": {
     "lib": "lib"

@@ -34,8 +34,9 @@ const cliInput = './src/cli/run.ts';
 
 const nodeCjs = {
     output: [{
-        file: 'bin/ioco.js',
-        format: 'cjs'
+        file: 'bin/index.js',
+        format: 'cjs',
+        banner: "#!/usr/bin/env node"
     }],
     external: ['path', 'fs'],
     plugins: [versionInjection, typescript(tsconfig)],
