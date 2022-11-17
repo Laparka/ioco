@@ -128,3 +128,4 @@ dist
 lib/
 bin/
 package-lock.json
+.idea/
