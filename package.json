@@ -1,6 +1,6 @@
 {
   "name": "ioco",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "TypeScript Dependency Injection",
   "main": "lib/ioco.node.cjs.js",
   "types": "lib/ioco.d.ts",
@@ -25,6 +25,14 @@
   ],
   "author": "Marat Sultangareev",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Laparka/ioco.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Laparka/ioco/issues"
+  },
+  "homepage": "https://github.com/Laparka/ioco#readme",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^14.1.0",
     "@types/jest": "^28.1.1",
