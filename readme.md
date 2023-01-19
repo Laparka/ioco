@@ -23,11 +23,11 @@ The library consists of two parts:
 - A schema generator
 - Dependency resolver
 
-##Usage Examples
+## Usage Examples
 The resolvers are using the dependency schema. One way is to prepare a custom dependency schema and initializing the [TypeScriptContainerBuilder](/src/containerBuilders/containerBuilder.ts) with the schema object in constructor.
 Another way is to generate a schema using the [ioco CLI command](/src/cli/run.ts) with the -c argument and providing the path to a config file.
 
-###Module Registrars
+### Module Registrars
 
 First, you need to provide an entry module with the registrations:
 
