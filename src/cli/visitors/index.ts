@@ -1,67 +1,63 @@
 import * as ts from 'typescript';
 import * as fs from 'fs';
 import path from "path";
-import {Registrations, TraversalContext, ImportDefinition} from "../../containerBuilders/context";
-import {visitAsync} from "./addModuleVisitor";
-import {listDependenciesAsync} from "./dependencies";
 
-async function visitSourceFileAsync(sourceFile: ts.SourceFile, context: TraversalContext): Promise<void> {
-    if (sourceFile?.statements) {
-        for (let i = 0; i < sourceFile.statements.length; i++) {
-            await visitAsync(sourceFile.statements[i], context);
-        }
-    }
+interface DependencyGraph {
+    modulePath: string;
 }
 
-/*
-{
-    "entryModulePath": "./__tests__/startup.
-}
-* */
-export async function listRegistrations(importPath: string, startupName: string): Promise<Registrations> {
-    if (!importPath || !startupName) {
-        throw Error(`A relative path to your startup and an exportable startup name are required`);
-    }
-
-    const fileAbsolutePath = path.resolve(importPath.endsWith('.ts') ? importPath : `${importPath}.ts`);
-    const code = await fs.promises.readFile(fileAbsolutePath, 'utf-8');
-    const fileDirPath = path.dirname(fileAbsolutePath);
-    const sourceFile = ts.createSourceFile("_.ts", code, ts.ScriptTarget.Latest);
-    const context: TraversalContext = {
-        imports: {
-            names: new Map<string, ImportDefinition>(),
-            aliasesPath: []
-        },
-        registrationFilePath: fileAbsolutePath.substring(0, fileAbsolutePath.length - path.extname(fileAbsolutePath).length),
-        registrationDirPath: fileDirPath,
-        registrations: {
-            instances: [],
-            resolvers: []
-        },
-        startupName: startupName
-    };
-
-    await visitSourceFileAsync(sourceFile, context);
-
-    const processedInstances = new Map<string, string[]>();
-    for(let i = 0; i < context.registrations.instances.length; i++) {
-        const instance = context.registrations.instances[i];
-        if (instance.instanceType.isExternal) {
-            instance.dependencies = [];
+function _buildImportTree(filePath: string, importTree: DependencyGraph): DependencyGraph {
+    const fileContents = fs.readFileSync(filePath, 'utf8');
+    const sourceFile = ts.createSourceFile(filePath, fileContents, ts.ScriptTarget.ESNext, true);
+    for(const statement of sourceFile.statements) {
+        if (!ts.isImportDeclaration(statement)) {
             continue;
         }
 
-        const instancePath = `${instance.instanceType.locationPath}:${instance.instanceType.typeName}`;
-        let processed = processedInstances.get(instancePath);
-        if (!processed) {
-            processed = [];
-            processedInstances.set(instancePath, processed);
-            const dependencies = await listDependenciesAsync(instance.instanceType);
-            processed.push(...dependencies);
+        if (!statement.importClause || !ts.isImportClause(statement.importClause)) {
+            continue;
         }
 
-        instance.dependencies = processed;
-    }
+        if (!statement.moduleSpecifier || !ts.isStringLiteral(statement.moduleSpecifier)) {
+            continue;
+        }
 
-    return context.registrations;
+        const moduleName = statement.moduleSpecifier.text;
+        let modulePath: string;
+        if (moduleName.startsWith('.')) {
+            modulePath = path.join(path.dirname(filePath), `${moduleName}.ts`);
+            if (!fs.existsSync(modulePath)) {
+                modulePath = path.join(path.dirname(filePath), moduleName, 'index.ts');
+            }
+        }
+        else {
+            modulePath = moduleName;
+        }
+
+        if (statement.importClause.namedBindings) {
+            if (ts.isNamespaceImport(statement.importClause.namedBindings)) {
+                // import * as alias from './path'
+                const a = statement.importClause.namedBindings.name.text;
+            }
+            else if (ts.isNamedImports(statement.importClause.namedBindings)) {
+                statement.importClause.namedBindings.elements.forEach(importSpecifier => {
+                    if (importSpecifier.propertyName && importSpecifier.name) {
+                        // import {ServiceInterface as Interface} from './path';
+                        const a = `${importSpecifier.propertyName.text} as ${importSpecifier.name.text}`;
+                    } else if (importSpecifier.name) {
+                        // import {ServiceInterface, ServiceImpl} from './path';
+                        const a = importSpecifier.name.text;
+                    }
+                });
+            }
+        }
+        else if (statement.importClause.name) {
+            // import ServiceImpl from './path'
+        }
+    }
+    return importTree;
+}
+export function buildImportTree(callerPath: string, relativePath: string): DependencyGraph {
+    const filePath = path.join(callerPath, relativePath);
+    return _buildImportTree(filePath, {modulePath: filePath});
 }
